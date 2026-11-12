@@ -806,34 +806,6 @@ ggsave(file.path(figures_dir, "combined_interaction_simulation_plot.png"),
        height = 8,
        dpi = 300)
 
-# Developmental Review version: add panel C, what a study would find under narrow
-# vs permissive verbal input measures (built in study_outcome_simulation.R)
-vc_env <- new.env()
-vc_env$hist_text_scale <- 1.85
-vc_env$script_dir <- script_dir
-sys.source(file.path(script_dir, "study_outcome_simulation.R"), envir = vc_env)
-vocab_plot_combined <- vc_env$p_hist +
-  theme(plot.margin = margin(t = 10, r = 10, b = 10, l = 30))
-plot_c <- arrangeGrob(vocab_plot_combined,
-                      top = textGrob("C", x = unit(0.02, "npc"),
-                                     gp = gpar(fontsize = 43.1, fontface = "bold")))
-# Panels A and B on top with their shared legend; panel C below spanning the width
-combined_plots_vocab <- grid.arrange(
-  plot_a, plot_b,
-  shared_legend,
-  plot_c,
-  ncol = 2,
-  nrow = 3,
-  widths = c(1, 1.5),
-  heights = c(1, 0.12, 1.45),
-  layout_matrix = rbind(c(1, 2), c(3, 3), c(4, 4))
-)
-ggsave(file.path(figures_dir, "combined_interaction_simulation_vocab_plot.png"),
-       plot = combined_plots_vocab,
-       width = 20,
-       height = 20,
-       dpi = 300)
-
 # plot: Undersampling as Percentage of Total Possible Verbal Input
 # Facet by age group for better readability
 undersampling_plot <- ggplot(simulation_summary,
